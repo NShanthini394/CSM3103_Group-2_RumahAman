@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Registration - RumahAman</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>RumahAman <span
+                        style="font-size: 0.8rem; background: #e0e7ff; color: var(--primary-purple); padding: 2px 8px; border-radius: 20px; margin-left: 4px;">Landlord</span></span>
+            </div>
+            <h2>Landlord Registration</h2>
+            <p>Create an account to verify and list your safe properties</p>
+        </div>
+
+        <form id="landlordRegisterForm" onsubmit="handleLandlordRegister(event)">
+
+            <div class="input-group">
+                <label for="landlordName">Full Name / Company Name</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-id-card input-icon"></i>
+                    <input type="text" id="landlordName" placeholder="e.g. Ahmad Bin Ali" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="landlordEmail">Email Address</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-envelope input-icon"></i>
+                    <input type="email" id="landlordEmail" placeholder="name@example.com" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="landlordPhone">Phone Number</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-phone input-icon"></i>
+                    <input type="tel" id="landlordPhone" placeholder="e.g. 0123456789" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="landlordRegPassword">Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-lock input-icon"></i>
+                    <input type="password" id="landlordRegPassword" placeholder="Create a secure password" required>
+                    <i class="fa-regular fa-eye toggle-password" id="togglePassword"></i>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="landlordConfirmPassword">Confirm Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-lock-keyhole input-icon"></i>
+                    <input type="password" id="landlordConfirmPassword" placeholder="Repeat your password" required>
+                    <i class="fa-regular fa-eye toggle-password" id="toggleConfirmPassword"></i>
+                </div>
+            </div>
+
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" id="landlordTerms" required>
+                    <span>I agree to the <a href="#" class="forgot-pass">Landlord Policy & Terms</a></span>
+                </label>
+            </div>
+
+            <div id="errorMessage" class="error-banner" style="display: none;"></div>
+
+            <button type="submit" class="btn-login">
+                <span>Register as Landlord</span>
+                <i class="fa-solid fa-user-tie"></i>
+            </button>
+        </form>
+
+        <div class="register-redirect">
+            <p>Already have a landlord account? <a href="login_landlord.html" class="btn-register-link">Login Here</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#landlordRegPassword');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+        const confirmPasswordInput = document.querySelector('#landlordConfirmPassword');
+
+        toggleConfirmPassword.addEventListener('click', function () {
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // --- LOGIK PENDAFTARAN LANDLORD ---
+        function handleLandlordRegister(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('landlordName').value.trim();
+            const email = document.getElementById('landlordEmail').value.trim();
+            const phone = document.getElementById('landlordPhone').value.trim();
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            const errorBanner = document.getElementById('errorMessage');
+
+            errorBanner.style.display = "none";
+
+            if (password !== confirmPassword) {
+                errorBanner.textContent = "Passwords do not match. Please verify again.";
+                errorBanner.style.display = "block";
+                return;
+            }
+
+            // Ambil senarai landlords sedia ada daripada localStorage
+            let landlords = JSON.parse(localStorage.getItem('landlords')) || [];
+
+            const landlordExists = landlords.some(landlord => landlord.email === email);
+            if (landlordExists) {
+                errorBanner.textContent = "This email is already registered as a landlord!";
+                errorBanner.style.display = "block";
+                return;
+            }
+
+            const newLandlord = {
+                name: name,
+                email: email,
+                phone: phone,
+                password: password,
+                role: 'landlord'
+            };
+
+            landlords.push(newLandlord);
+            localStorage.setItem('landlords', JSON.stringify(landlords));
+
+            alert('Landlord account registration successful! Redirecting to landlord login...');
+            window.location.href = 'login_landlord.html';
+        }
+    </script>
+</body>
+
+</html>

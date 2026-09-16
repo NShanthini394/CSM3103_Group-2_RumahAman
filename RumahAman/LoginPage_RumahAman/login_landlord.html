@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Login - RumahAman</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>RumahAman <span
+                        style="font-size: 0.8rem; background: #e0e7ff; color: var(--primary-purple); padding: 2px 8px; border-radius: 20px; margin-left: 4px;">Landlord</span></span>
+            </div>
+            <h2>Landlord Portal</h2>
+            <p>Manage your properties and review area safety insights</p>
+        </div>
+
+        <form id="landlordLoginForm" onsubmit="handleLandlordLogin(event)">
+            <div class="input-group">
+                <label for="landlordUsername">Landlord Username / Email</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-user input-icon"></i>
+                    <input type="text" id="landlordUsername" placeholder="Enter your username or email" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="landlordPassword">Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-lock input-icon"></i>
+                    <input type="password" id="landlordPassword" placeholder="Enter your password" required>
+                    <i class="fa-regular fa-eye toggle-password" id="togglePassword"></i>
+                </div>
+            </div>
+
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox">
+                    <span>Remember this device</span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-login">
+                <span>Login as Landlord</span>
+                <i class="fa-solid fa-house-laptop"></i>
+            </button>
+        </form>
+
+        <div class="register-redirect">
+            <p>Want to list properties? <a href="register_landlord.html" class="btn-register-link">Register Landlord
+                    Account</a></p>
+            <p style="margin-top: 12px; font-size: 0.8rem;"><a href="login.html"
+                    style="color: var(--text-muted); text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Back
+                    to Regular User Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#landlordPassword');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // --- LOGIK LOG MASUK LANDLORD ---
+        function handleLandlordLogin(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('landlordUsername').value.trim();
+            const passwordInputVal = passwordInput.value;
+
+            // Ambil data landlords daripada localStorage
+            let landlords = JSON.parse(localStorage.getItem('landlords')) || [];
+
+            const validLandlord = landlords.find(landlord =>
+                landlord.email === emailInput && landlord.password === passwordInputVal
+            );
+
+            if (validLandlord) {
+                if (validLandlord.role === 'landlord') {
+                    localStorage.setItem('currentLandlord', JSON.stringify(validLandlord));
+
+                    alert('Login successful! Welcome to Landlord Portal.');
+                    window.location.href = '../Landlord_Dashboard/landlord.html';
+                } else {
+                    alert('Access Denied. Invalid portal.');
+                }
+            } else {
+                alert('Invalid email or password. Please try again.');
+            }
+        }
+    </script>
+</body>
+
+</html>
