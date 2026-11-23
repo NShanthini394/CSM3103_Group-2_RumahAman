@@ -1,6 +1,6 @@
+const DEMO_SEED_VERSION = "v1.1";
 const DB_NAME = "RumahAmanDB";
 const DB_VERSION = 1;
-const DEMO_SEED_VERSION = "v1.0";
 const PAGE_SIZE = 12;
 
 let db = null;
@@ -38,12 +38,13 @@ const locationData = {
 // DETERMINISTIC DEMO SEEDER (3 TO 5 LISTINGS PER DISTRICT)
 // =========================================================
 const PROPERTY_TEMPLATES = [
-    { houseType: "Terrace", label: "Double-Storey Terrace", beds: 4, baths: 3, rentBase: 1450, saleBase: 460000, image: "../images/house1.jpg" },
+    const PROPERTY_TEMPLATES = [
+    { houseType: "Terrace", label: "Double-Storey Terrace", beds: 4, baths: 3, rentBase: 1450, saleBase: 460000, image: "../images/house1.png" },
     { houseType: "Condominium", label: "Serviced Residence", beds: 3, baths: 2, rentBase: 1650, saleBase: 420000, image: "../images/house2.jpg" },
     { houseType: "Condominium", label: "Garden Condo Suite", beds: 3, baths: 2, rentBase: 1500, saleBase: 390000, image: "../images/house3.jpg" },
-    { houseType: "Terrace", label: "Single-Storey Home", beds: 3, baths: 2, rentBase: 1100, saleBase: 310000, image: "../images/house4.jpg" },
+    { houseType: "Terrace", label: "Single-Storey Home", beds: 3, baths: 2, rentBase: 1100, saleBase: 310000, image: "../images/house4.jpeg" },
     { houseType: "Semi-D", label: "Corner Semi-D Villa", beds: 4, baths: 3, rentBase: 2200, saleBase: 680000, image: "../images/house5.jpg" },
-    { houseType: "Apartment", label: "Modern Urban Apartment", beds: 2, baths: 1, rentBase: 950, saleBase: 240000, image: "../images/house6.jpg" },
+    { houseType: "Apartment", label: "Modern Urban Apartment", beds: 2, baths: 1, rentBase: 950, saleBase: 240000, image: "../images/house6.webp" },
     { houseType: "Townhouse", label: "Gated Townhouse", beds: 3, baths: 3, rentBase: 1750, saleBase: 490000, image: "../images/house7.jpg" },
     { houseType: "Bungalow", label: "Executive Family Bungalow", beds: 5, baths: 4, rentBase: 3000, saleBase: 880000, image: "../images/house8.jpg" }
 ];
