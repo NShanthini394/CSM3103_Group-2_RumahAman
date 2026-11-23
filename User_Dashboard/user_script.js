@@ -38,7 +38,6 @@ const locationData = {
 // DETERMINISTIC DEMO SEEDER (3 TO 5 LISTINGS PER DISTRICT)
 // =========================================================
 const PROPERTY_TEMPLATES = [
-    const PROPERTY_TEMPLATES = [
     { houseType: "Terrace", label: "Double-Storey Terrace", beds: 4, baths: 3, rentBase: 1450, saleBase: 460000, image: "../images/house1.png" },
     { houseType: "Condominium", label: "Serviced Residence", beds: 3, baths: 2, rentBase: 1650, saleBase: 420000, image: "../images/house2.jpg" },
     { houseType: "Condominium", label: "Garden Condo Suite", beds: 3, baths: 2, rentBase: 1500, saleBase: 390000, image: "../images/house3.jpg" },
