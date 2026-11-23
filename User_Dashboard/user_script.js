@@ -813,4 +813,5 @@ function handleUserLogout() {
         alert("Session cleared safely.");
         window.location.href = "../index.html";
     }
+    
 }
